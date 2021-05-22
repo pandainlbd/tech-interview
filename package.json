@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/krew-live/tech-interview/issues"
   },
-  "homepage": "https://github.com/krew-live/tech-interview#readme"
+  "homepage": "https://github.com/krew-live/tech-interview#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

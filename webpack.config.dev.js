@@ -1,7 +1,8 @@
-const webpack = require('webpack');
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+import webpack from 'webpack';
+import { VueLoaderPlugin } from 'vue-loader';
+import fiber from 'fibers';
 
-module.exports = {
+export default {
 	mode: 'development',
 	resolve: {
 		extensions: ['.ts', '.js'],
@@ -39,7 +40,7 @@ module.exports = {
 						loader: 'sass-loader',
 						options: {
 							sassOptions: {
-								fiber: require('fibers'),
+								fiber,
 								indentedSyntax: true
 							}
 						}
@@ -57,4 +58,4 @@ module.exports = {
 		new VueLoaderPlugin(),
 	],
 	devtool: 'eval-source-map'
-};
+}

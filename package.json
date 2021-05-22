@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "build": "webpack --config webpack.config.dev.js --progress --color",
+    "watch": "webpack --config webpack.config.dev.js --progress --color --watch"
   },
   "repository": {
     "type": "git",
@@ -18,5 +20,12 @@
   "homepage": "https://github.com/krew-live/tech-interview#readme",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "fibers": "^5.0.0",
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.7",
+    "vue-template-compiler": "^2.6.12",
+    "webpack-cli": "^4.7.0"
   }
 }

@@ -1,13 +1,13 @@
 import express from 'express';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import events from './events.js';
+import reminder from './reminder.js';
 const app = express();
 const db = new MongoMemoryServer();
 
 app.use(express.static('dist'));
 app.use(express.static('static'));
 app.set('db', db);
-app.use('/event', events);
+app.use('/reminder', reminder);
 
 app.get('/create', (req, res) => {
 	res.send('Hello World!')

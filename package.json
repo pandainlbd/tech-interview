@@ -2,10 +2,11 @@
   "name": "tech-interview",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "start": "node server/index.js",
     "build": "webpack --config webpack.config.dev.js --progress --color",
     "watch": "webpack --config webpack.config.dev.js --progress --color --watch"
   },
@@ -19,7 +20,8 @@
   },
   "homepage": "https://github.com/krew-live/tech-interview#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb-memory-server": "^6.9.6"
   },
   "devDependencies": {
     "fibers": "^5.0.0",

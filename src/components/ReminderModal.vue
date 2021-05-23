@@ -41,6 +41,10 @@ export default {
 					datetime: this.datetime,
 				}),
 			})).json();
+			if (res.err) {
+				window.alert(res.err);
+				return;
+			}
 			this.$emit('on-reminder-created');
 			this.close();
 		},

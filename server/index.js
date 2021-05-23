@@ -8,6 +8,7 @@ import reminder from './reminder.js';
 const app = express();
 const mongod = new MongoMemoryServer();
 const uri = await mongod.getUri();
+console.log('DB at:', uri);
 const mongoClient = new MongoClient(uri, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,

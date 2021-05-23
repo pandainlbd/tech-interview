@@ -11,10 +11,10 @@ router.get('/get-range', async (req, res) => {
 		query.datetime = {};
 
 		if (req.query.from)
-			query.datetime.$gte = new Date(req.query.from);
+			query.datetime.$gte = new Date(+req.query.from);
 
 		if (req.query.to)
-			query.datetime.$lt = new Date(req.query.to);
+			query.datetime.$lt = new Date(+req.query.to);
 	}
 
 	const data = await remindersCol.find(query).toArray();
@@ -37,7 +37,7 @@ router.post('/create', async (req, res) => {
 	await remindersCol.insertOne({
 		name,
 		description,
-		datetime,
+		datetime: new Date(datetime),
 	});
 	res.json({ success: true });
 });

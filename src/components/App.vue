@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="text-3xl text-gray-800 font-bold mb-4">Your reminders for this week:</h1>
+		<h1 class="text-3xl text-gray-800 font-bold mb-4">Your reminders for a week from now:</h1>
 		<reminder-card
 			v-for="reminder in reminders"
 			:key="reminder._id"
@@ -35,7 +35,10 @@ export default {
 	},
 	methods: {
 		async reloadReminders() {
-			const reminders = await (await fetch('/reminder/get-range')).json();
+			const now = +new Date();
+			const nowPlusWeek = now + 1000 * 60 * 60 * 24 * 7;
+
+			const reminders = await (await fetch(`/reminder/get-range?from=${now}&to=${nowPlusWeek}`)).json();
 			// Convert date strings to Date
 			reminders.forEach(r => r.datetime = new Date(r.datetime));
 			this.reminders = reminders;

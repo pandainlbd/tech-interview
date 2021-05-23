@@ -1,8 +1,18 @@
 import express from 'express';
 import { MongoMemoryServer } from 'mongodb-memory-server';
+import mongodb from 'mongodb';
+const { MongoClient } = mongodb;
 import reminder from './reminder.js';
+
 const app = express();
-const db = new MongoMemoryServer();
+const mongod = new MongoMemoryServer();
+const uri = await mongod.getUri();
+const mongoClient = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+await mongoClient.connect();
+const db = mongoClient.db('tech-interview');
 
 // Add some fake data
 const remindersCol = db.collection('reminders');

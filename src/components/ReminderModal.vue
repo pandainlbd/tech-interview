@@ -17,20 +17,32 @@ export default {
 		isOpen: true,
 		name: '',
 		description: '',
-		datetime: new Date(),
+		datetime: new Date().toLocaleString('sv').replace(' ', 'T'),
 	}),
 	mounted() {
 	},
 	methods: {
 		open() {
+			this.name = '';
+			this.description = '';
+			this.datetime = new Date().toLocaleString('sv').replace(' ', 'T');
 			this.$refs.dialog.showModal();
 		},
 		close() {
 			this.$refs.dialog.close();
-			console.log('sad');
 		},
-		create() {
-			console.log(this.name, this.description);
+		async create() {
+			const res = await (await fetch('/reminder/create', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					name: this.name,
+					description: this.description,
+					datetime: this.datetime,
+				}),
+			})).json();
+			this.$emit('on-reminder-created');
+			this.close();
 		},
 	}
 }

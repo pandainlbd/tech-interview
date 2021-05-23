@@ -1,4 +1,5 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongodb from 'mongodb';
 const { MongoClient } = mongodb;
@@ -8,8 +9,8 @@ const app = express();
 const mongod = new MongoMemoryServer();
 const uri = await mongod.getUri();
 const mongoClient = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
 });
 await mongoClient.connect();
 const db = mongoClient.db('tech-interview');
@@ -30,11 +31,8 @@ remindersCol.insertMany([
 
 app.use(express.static('dist'));
 app.use(express.static('static'));
+app.use(bodyParser.json());
 app.set('db', db);
 app.use('/reminder', reminder);
-
-app.get('/create', (req, res) => {
-	res.send('Hello World!')
-});
 
 app.listen(process.env.PORT || 8080);

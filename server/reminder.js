@@ -22,8 +22,24 @@ router.get('/get-range', async (req, res) => {
 	res.json(data);
 });
 
-router.get('/create', (req, res) => {
-	res.send('Hello Reminder!');
+router.post('/create', async (req, res) => {
+	const {
+		name,
+		description,
+		datetime,
+	} = req.body;
+
+	if (!name || !datetime)
+		return res.json({ err: 'Please enter at least a name and a time' });
+
+	const db = req.app.get('db');
+	const remindersCol = db.collection('reminders');
+	await remindersCol.insertOne({
+		name,
+		description,
+		datetime,
+	});
+	res.json({ success: true });
 });
 
 export default router;

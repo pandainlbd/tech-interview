@@ -11,7 +11,10 @@
 		<div>
 			<button class="p-2 my-2 bg-gray-100" @click="openReminderModal">Create</button>
 		</div>
-		<reminder-modal ref="reminderModal" />
+		<reminder-modal
+			ref="reminderModal"
+			@on-reminder-created="reloadReminders"
+			/>
 	</div>
 </template>
 
@@ -32,11 +35,14 @@ export default {
 	},
 	methods: {
 		async reloadReminders() {
-			this.reminders = await (await fetch('/reminder/get-range')).json();
+			const reminders = await (await fetch('/reminder/get-range')).json();
+			// Convert date strings to Date
+			reminders.forEach(r => r.datetime = new Date(r.datetime));
+			this.reminders = reminders;
 		},
 		openReminderModal() {
 			this.$refs.reminderModal.open();
-		}
+		},
 	}
 }
 </script>

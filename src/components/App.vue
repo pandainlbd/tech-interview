@@ -3,10 +3,10 @@
 		<h1 class="text-3xl text-gray-800 font-bold mb-4">Your reminders for this week:</h1>
 		<reminder-card
 			v-for="reminder in reminders"
-			:name="reminder"
-			:key="reminder"
-			:description="reminder"
-			:datetime="new Date()"
+			:key="reminder._id"
+			:name="reminder.name"
+			:description="reminder.description"
+			:datetime="reminder.datetime"
 			/>
 		<div>
 			<button class="p-2 my-2 bg-gray-100" @click="openReminderModal">Create</button>
@@ -25,11 +25,15 @@ export default {
 		ReminderModal,
 	},
 	data: () => ({
-		reminders: ['asda', 'asdasd'],
+		reminders: [],
 	}),
-	mounted() {
+	async mounted() {
+		await this.reloadReminders();
 	},
 	methods: {
+		async reloadReminders() {
+			this.reminders = await (await fetch('/reminder/get-range')).json();
+		},
 		openReminderModal() {
 			this.$refs.reminderModal.open();
 		}

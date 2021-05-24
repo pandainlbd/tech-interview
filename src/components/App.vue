@@ -10,6 +10,7 @@
       :description="reminder.description"
       :datetime="reminder.datetime"
       :reminder_color="reminder.reminder_color"
+      :audio="reminder.audio"
     />
     <div class="flex">
       <button class="p-2 my-2 bg-gray-100 flex-1" @click="openReminderModal">

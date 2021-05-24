@@ -4,6 +4,7 @@
     <div>
       <p>{{ datetime }}</p>
       <p>{{ description }}</p>
+      <audio v-if="audio" :src="audioURL" controls></audio>
     </div>
   </div>
 </template>
@@ -27,9 +28,19 @@ export default {
       type: String,
       required: true,
     },
+    audio: {
+      type: Object,
+      required: false,
+    },
   },
   mounted() {},
   methods: {},
+  computed: {
+    audioURL() {
+      // return this.audio ? URL.createObjectURL(new Blob(this.audio, {type: "application/zip"}) : "";
+      return "";
+    },
+  },
 };
 </script>
 

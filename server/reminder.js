@@ -27,7 +27,8 @@ router.post('/create', async (req, res) => {
 		name,
 		description,
 		datetime,
-		reminder_color
+		reminder_color,
+		audio
 	} = req.body;
 
 	if (!name || !datetime)
@@ -39,7 +40,8 @@ router.post('/create', async (req, res) => {
 		name,
 		description,
 		datetime: new Date(datetime),
-		reminder_color: reminder_color
+		reminder_color,
+		audio
 	});
 	res.json({ success: true });
 });

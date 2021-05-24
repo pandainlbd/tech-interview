@@ -24,14 +24,14 @@
         <option value="bg-yellow-200">Yellow</option>
         <option value="bg-green-200">Green</option>
       </select>
-      <voice-recorder />
+      <voice-recorder @audio_available="save_audio" />
       <button class="p-2 my-2 bg-gray-100" @click="create">Create</button>
     </div>
   </dialog>
 </template>
 
 <script>
-import VoiceRecorder from './VoiceRecorder.vue';
+import VoiceRecorder from "./VoiceRecorder.vue";
 
 export default {
   components: { VoiceRecorder },
@@ -41,6 +41,7 @@ export default {
     description: "",
     datetime: new Date().toLocaleString("sv").replace(" ", "T"),
     reminder_color: "default",
+    audio: null,
   }),
   mounted() {},
   methods: {
@@ -62,7 +63,8 @@ export default {
             name: this.name,
             description: this.description,
             datetime: this.datetime,
-						reminder_color: this.reminder_color
+            reminder_color: this.reminder_color,
+            audio: this.audio,
           }),
         })
       ).json();
@@ -73,6 +75,10 @@ export default {
       }
       this.$emit("on-reminder-created");
       this.close();
+    },
+    save_audio(audio) {
+      this.audio = audio;
+      console.log("Audio received!");
     },
   },
 };

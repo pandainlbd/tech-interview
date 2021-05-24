@@ -24,6 +24,7 @@
         <option value="bg-yellow-200">Yellow</option>
         <option value="bg-green-200">Green</option>
       </select>
+      <voice-recorder />
       <button class="p-2 my-2 bg-gray-100" @click="create">Create</button>
     </div>
   </dialog>
@@ -33,6 +34,7 @@
 import VoiceRecorder from './VoiceRecorder.vue';
 
 export default {
+  components: { VoiceRecorder },
   data: () => ({
     isOpen: true,
     name: "",

@@ -24,7 +24,7 @@
         <option value="bg-yellow-200">Yellow</option>
         <option value="bg-green-200">Green</option>
       </select>
-      <voice-recorder @audio_available="save_audio" />
+      <voice-recorder @audio_available="receive_audio" />
       <button class="p-2 my-2 bg-gray-100" @click="create">Create</button>
     </div>
   </dialog>
@@ -76,7 +76,7 @@ export default {
       this.$emit("on-reminder-created");
       this.close();
     },
-    save_audio(audio) {
+    receive_audio(audio) {
       this.audio = audio;
       console.log("Audio received!");
     },

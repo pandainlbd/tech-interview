@@ -35,7 +35,7 @@ export default {
       });
       this.recorder = new MediaRecorder(this.stream);
       this.recorder.ondataavailable = (e) => {
-        this.audio = e.data.toText();
+        this.audio = e.data.text();
         var url = URL.createObjectURL(e.data);
         this.$refs.preview.controls = true;
         this.$refs.preview.src = url;

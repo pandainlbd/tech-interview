@@ -4,7 +4,7 @@
     <div>
       <p class="text-xs text-gray-600">{{ datetime }}</p>
       <p>{{ description }}</p>
-      <audio v-if="audio" :src="audioURL" controls></audio>
+      <audio v-if="audio" ref="player"></audio>
     </div>
   </div>
 </template>
@@ -29,18 +29,25 @@ export default {
       required: true,
     },
     audio: {
-      type: Object,
+      type: String,
       required: false,
     },
   },
-  mounted() {},
-  methods: {},
-  computed: {
-    audioURL() {
-      // return this.audio ? URL.createObjectURL(new Blob(this.audio, {type: "application/zip"}) : "";
-      return "";
-    },
+  data() {
+    return {
+      audioBlob: null,
+      audioURL: null,
+    };
   },
+  mounted() {
+    this.audioBlob = new Blob([this.audio], {
+      type: "audio/webm",
+    });
+    this.audioURL = URL.createObjectURL(this.audioBlob);
+    this.$refs.player.controls = true;
+    this.$refs.player.src = this.audioURL;
+  },
+  methods: {},
 };
 </script>
 

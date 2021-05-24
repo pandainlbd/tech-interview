@@ -1,6 +1,6 @@
 <template>
   <div class="my-2">
-    <h1 class="text-3xl text-gray-800 font-bold mb-4">
+    <h1 class="text-3xl text-gray-800 font-medium m-3">
       Your reminders for a week from now:
     </h1>
     <reminder-card
@@ -12,7 +12,7 @@
       :reminder_color="reminder.reminder_color"
     />
     <div class="flex">
-      <button class="p-2 my-2 bg-gray-100 flex-1" @click="openReminderModal">
+      <button class="p-2 m-2 bg-gray-100 flex-1" @click="openReminderModal">
         Create
       </button>
     </div>

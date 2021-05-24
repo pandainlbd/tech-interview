@@ -1,8 +1,8 @@
 <template>
-  <div :class="['rounded-md', 'p-3', 'my-4', 'mx-3', reminder_color]">
+  <div :class="['rounded-md shadow p-3 pb-5 my-4 mx-3', reminder_color]">
     <h3 class="font-medium mb-1.5 text-3xl text-gray-600">{{ name }}</h3>
     <div>
-      <p>{{ datetime }}</p>
+      <p class="text-xs text-gray-600">{{ datetime }}</p>
       <p>{{ description }}</p>
     </div>
   </div>

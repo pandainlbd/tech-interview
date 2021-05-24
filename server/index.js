@@ -7,7 +7,7 @@ import reminder from './reminder.js';
 
 const app = express();
 // const mongod = new MongoMemoryServer();
-const uri = "mongodb://guest:guest@seed.amar.io:27017/krew?authSource=admin&readPreference=primary&authMechanism=DEFAULT&ssl=false";
+const uri = "<<Hiding Database URI for security>>";
 console.log('DB at:', uri);
 const mongoClient = new MongoClient(uri, {
 	useNewUrlParser: true,

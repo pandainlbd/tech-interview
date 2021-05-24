@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server/index.js",
+    "start": "nodemon --watch server --trace-warnings server/index.js",
     "build": "webpack --config webpack.config.dev.js --progress --color",
     "watch": "webpack --config webpack.config.dev.js --progress --color --watch"
   },
@@ -23,7 +23,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.8",
-    "mongodb-memory-server": "^6.9.6"
+    "nodemon": "^2.0.7"
   },
   "devDependencies": {
     "fibers": "^5.0.0",

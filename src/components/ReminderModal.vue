@@ -1,5 +1,5 @@
 <template>
-  <dialog ref="dialog" class="border border-black rounded-md shadow-md">
+  <dialog ref="dialog" class="rounded-md shadow-md">
     <div class="flex flex-col">
       <button class="absolute top-0 right-0 m-2 p-2" @click="close">x</button>
       <h2 class="text-2xl text-gray-800 font-bold mb-4">New reminder</h2>
@@ -20,12 +20,18 @@
         <option value="default" disabled selected>
           select a color you like
         </option>
-        <option value="bg-red-200">Red</option>
+        <option value="bg-blue-100">Blue</option>
         <option value="bg-yellow-200">Yellow</option>
         <option value="bg-green-200">Green</option>
       </select>
       <voice-recorder @audio_available="receive_audio" />
-      <button class="p-2 my-2 bg-gray-300 font-medium" @click="create">Create</button>
+      <button
+        class="p-2 my-2 font-medium bg text-white"
+        id="createButton"
+        @click="create"
+      >
+        Create
+      </button>
     </div>
   </dialog>
 </template>
@@ -85,4 +91,12 @@ export default {
 </script>
 
 <style scoped>
+#createButton:hover {
+  background: linear-gradient(
+    60deg,
+    rgb(142, 252, 233) 10%,
+    rgb(88, 161, 230) 50%,
+    rgb(185, 147, 243) 100%
+  );
+}
 </style>

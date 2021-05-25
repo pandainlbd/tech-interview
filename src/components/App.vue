@@ -1,19 +1,26 @@
 <template>
-  <div class="my-2">
-    <h1 class="text-3xl text-gray-800 font-medium m-3">
+  <div class="bg h-screen w-screen py-2 lg:px-96">
+    <h1 class="text-3xl text-white font-medium m-3">
       Your reminders for a week from now:
     </h1>
-    <reminder-card
-      v-for="reminder in reminders"
-      :key="reminder._id"
-      :name="reminder.name"
-      :description="reminder.description"
-      :datetime="reminder.datetime"
-      :reminder_color="reminder.reminder_color"
-      :audio="reminder.audio"
-    />
+
+    <div>
+      <reminder-card
+        v-for="reminder in reminders"
+        :key="reminder._id"
+        :name="reminder.name"
+        :description="reminder.description"
+        :datetime="reminder.datetime"
+        :reminder_color="reminder.reminder_color"
+        :audio="reminder.audio"
+      />
+    </div>
+
     <div class="flex">
-      <button class="p-2 m-2 flex-1 bg-gray-300 font-medium" @click="openReminderModal">
+      <button
+        class="p-4 m-2 flex-1 bg-white font-medium"
+        @click="openReminderModal"
+      >
         Create new task!
       </button>
     </div>
@@ -62,4 +69,12 @@ export default {
 </script>
 
 <style>
+.bg {
+  background: linear-gradient(
+    60deg,
+    rgb(142, 252, 233) 10%,
+    rgb(88, 161, 230) 50%,
+    rgb(185, 147, 243) 100%
+  );
+}
 </style>

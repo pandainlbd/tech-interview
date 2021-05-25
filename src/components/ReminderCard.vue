@@ -1,5 +1,5 @@
 <template>
-  <div :class="['rounded-md shadow p-3 pb-5 my-4 mx-3', reminder_color]">
+  <div :class="['rounded-md shadow-lg p-3 pb-5 my-4 mx-3', reminder_color]">
     <div class="flex justify-between mb-2">
       <h3 class="font-medium mb-1.5 text-xl text-gray-600 self-center">
         {{ name }}

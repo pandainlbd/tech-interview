@@ -54,20 +54,27 @@ export default {
       reminders.forEach((r) => (r.datetime = new Date(r.datetime)));
       this.reminders = reminders;
 
-      for (const reminder of this.reminders) {
+      for (let reminder of this.reminders) {
         console.log(reminder);
         if (reminder.audio) {
-          console.log("Entering loop");
-          const audioBlob = new Blob([reminder.audio], {
-            type: "audio/ogg,codecs=opus",
-          });
-          var elem = window.document.createElement("a");
-          elem.href = window.URL.createObjectURL(audioBlob);
-          elem.download = "somefile.ogg";
+          console.log(typeof reminder.audio);
+          const decodedAudio = this.decodeBase64Audio(reminder.audio);
+          var elem = document.createElement("audio");
+          elem.src = URL.createObjectURL(decodedAudio);
+          elem.controls = true;
           document.body.appendChild(elem);
-          elem.click();
         }
       }
+    },
+    decodeBase64Audio(base64Audio) {
+      const byteCharacters = atob(base64Audio);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: "audio/ogg,codecs=opus" });
+      return blob;
     },
     openReminderModal() {
       this.$refs.reminderModal.open();

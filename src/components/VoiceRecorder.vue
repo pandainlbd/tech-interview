@@ -7,7 +7,7 @@
     >
       {{ recorder ? "Stop" : "Record" }}
     </button>
-    <audio ref="preview"></audio>
+    <audio class="bg-gray-100 mt-3 rounded-xl" ref="preview"></audio>
   </div>
 </template>
 
@@ -42,18 +42,21 @@ export default {
           type: "audio/ogg,codecs=opus",
         });
 
-        var audioFile = new File([this.audioBlob], "audio.ogg");
-        var elem = window.document.createElement("a");
-        elem.href = window.URL.createObjectURL(audioFile);
-        elem.download = "my_recording.ogg";
-        document.body.appendChild(elem);
-        elem.click();
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL(audioFile);
-        fileReader.onload = () => {
-          this.audio = fileReader.result; // Encoded as base64 string!
-          this.$emit("audio_available", this.audio);
+        console.log(this.audioBlob);
+
+        // this.$emit("audio_available", JSON.stringify(audioFile));
+        // var elem = window.document.createElement("a");
+        // elem.href = window.URL.createObjectURL(audioFile);
+        // elem.download = "my_recording.ogg";
+        // document.body.appendChild(elem);
+        // elem.click();
+        var reader = new FileReader();
+        reader.onloadend = () => {
+          let base64 = reader.result;
+          this.$emit("audio_available", base64);
         };
+        reader.readAsDataURL(this.audioBlob);
+
         var url = URL.createObjectURL(this.audioBlob);
         this.$refs.preview.controls = true;
         this.$refs.preview.src = url;

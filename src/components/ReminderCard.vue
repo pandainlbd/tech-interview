@@ -4,7 +4,7 @@
     <div>
       <p class="text-xs text-gray-600">{{ datetime }}</p>
       <p>{{ description }}</p>
-      <audio v-show="audio" ref="player"></audio>
+      <audio ref="player"></audio>
     </div>
   </div>
 </template>
@@ -39,10 +39,13 @@ export default {
       audioURL: null,
     };
   },
-  mounted() {
-    this.audioBlob = new Blob([this.audio], {
-      type: "audio/webm",
+  async mounted() {
+    const base64Response = await fetch(this.audio);
+    this.audioBlob = await base64Response.blob();
+    this.audioBlob = new Blob([this.audioBlob], {
+      type: "audio/ogg,codecs=opus",
     });
+    console.log(this.audioBlob);
     this.audioURL = URL.createObjectURL(this.audioBlob);
     this.$refs.player.controls = true;
     this.$refs.player.src = this.audioURL;

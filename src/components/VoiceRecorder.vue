@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="flex">
     <button
-      class="p-2 my-2 bg-gray-100"
+      class="p-2 my-2 bg-gray-100 flex-1"
       @click="toggleRecording"
       ref="toggleButton"
     >

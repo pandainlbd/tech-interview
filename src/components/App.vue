@@ -13,7 +13,7 @@
       :audio="reminder.audio"
     />
     <div class="flex">
-      <button class="p-2 m-2 bg-gray-100 flex-1" @click="openReminderModal">
+      <button class="p-2 m-2 flex-1 bg-gray-300 font-medium" @click="openReminderModal">
         Create new task!
       </button>
     </div>

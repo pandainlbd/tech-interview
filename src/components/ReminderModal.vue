@@ -1,7 +1,7 @@
 <template>
   <dialog ref="dialog" class="border border-black rounded-md shadow-md">
     <div class="flex flex-col">
-      <button class="absolute top-0 right-0 m-2 p-2" @click="close">X</button>
+      <button class="absolute top-0 right-0 m-2 p-2" @click="close">x</button>
       <h2 class="text-2xl text-gray-800 font-bold mb-4">New reminder</h2>
       <input class="p-2 my-2" type="text" v-model="name" placeholder="name" />
       <textarea
@@ -10,7 +10,7 @@
         v-model="description"
         placeholder="description"
       />
-      <input class="p-2 my-2" type="datetime-local" v-model="datetime" />
+      <input class="p-2 my-2 w-full" type="datetime-local" v-model="datetime" />
       <select
         name="colors"
         id="colors"
@@ -25,7 +25,7 @@
         <option value="bg-green-200">Green</option>
       </select>
       <voice-recorder @audio_available="receive_audio" />
-      <button class="p-2 my-2 bg-gray-100" @click="create">Create</button>
+      <button class="p-2 my-2 bg-gray-300 font-medium" @click="create">Create</button>
     </div>
   </dialog>
 </template>

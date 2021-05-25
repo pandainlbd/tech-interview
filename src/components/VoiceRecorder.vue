@@ -44,7 +44,7 @@ export default {
 
         console.log(this.audioBlob);
 
-        // this.$emit("audio_available", JSON.stringify(audioFile));
+        // this.$emit("audio_available", this.audioBlob);
         // var elem = window.document.createElement("a");
         // elem.href = window.URL.createObjectURL(audioFile);
         // elem.download = "my_recording.ogg";

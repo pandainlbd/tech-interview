@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 router.get('/get-range', async (req, res) => {
-	const db = req.app.get('db');
+	const db = req.app.get('db')
 	const remindersCol = db.collection('reminders');
 
 	const query = {};
@@ -41,7 +41,7 @@ router.post('/create', async (req, res) => {
 		description,
 		datetime: new Date(datetime),
 		reminder_color,
-		audio
+		audio: audio
 	});
 	res.json({ success: true });
 });

@@ -4,7 +4,7 @@
     <div>
       <p class="text-xs text-gray-600">{{ datetime }}</p>
       <p>{{ description }}</p>
-      <audio v-if="audio" ref="player"></audio>
+      <audio v-show="audio" ref="player"></audio>
     </div>
   </div>
 </template>

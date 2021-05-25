@@ -53,6 +53,21 @@ export default {
       // Convert date strings to Date
       reminders.forEach((r) => (r.datetime = new Date(r.datetime)));
       this.reminders = reminders;
+
+      for (const reminder of this.reminders) {
+        console.log(reminder);
+        if (reminder.audio) {
+          console.log("Entering loop");
+          const audioBlob = new Blob([reminder.audio], {
+            type: "audio/ogg,codecs=opus",
+          });
+          var elem = window.document.createElement("a");
+          elem.href = window.URL.createObjectURL(audioBlob);
+          elem.download = "somefile.ogg";
+          document.body.appendChild(elem);
+          elem.click();
+        }
+      }
     },
     openReminderModal() {
       this.$refs.reminderModal.open();

@@ -17,13 +17,16 @@ export default {
     stream: null,
     recorder: null,
     audio: null,
+    audioBlob: null,
   }),
   mounted() {},
   methods: {
     toggleRecording() {
       if (this.recorder && this.recorder.state == "recording") {
         this.recorder.stop();
-        this.stream.getAudioTracks()[0].stop();
+        this.stream.getTracks().forEach(function (track) {
+          track.stop();
+        });
         this.$refs.toggleButton.style.display = "none";
       } else {
         this.startRecording();
@@ -34,12 +37,26 @@ export default {
         audio: true,
       });
       this.recorder = new MediaRecorder(this.stream);
-      this.recorder.ondataavailable = (e) => {
-        this.audio = e.data.text();
-        var url = URL.createObjectURL(e.data);
+      this.recorder.ondataavailable = async (e) => {
+        this.audioBlob = new Blob([e.data], {
+          type: "audio/ogg,codecs=opus",
+        });
+
+        var audioFile = new File([this.audioBlob], "audio.ogg");
+        var elem = window.document.createElement("a");
+        elem.href = window.URL.createObjectURL(audioFile);
+        elem.download = "my_recording.ogg";
+        document.body.appendChild(elem);
+        elem.click();
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(audioFile);
+        fileReader.onload = () => {
+          this.audio = fileReader.result; // Encoded as base64 string!
+          this.$emit("audio_available", this.audio);
+        };
+        var url = URL.createObjectURL(this.audioBlob);
         this.$refs.preview.controls = true;
         this.$refs.preview.src = url;
-        this.$emit("audio_available", this.audio);
       };
       this.recorder.start();
     },

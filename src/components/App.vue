@@ -6,26 +6,34 @@
 
     <div>
       <reminder-card
-        v-for="reminder in reminders"
+        v-for="(reminder, index) in reminders"
         :key="reminder._id"
+        :index="index"
         :name="reminder.name"
         :description="reminder.description"
         :datetime="reminder.datetime"
         :reminder_color="reminder.reminder_color"
         :audio="reminder.audio"
+        @edit-reminder="editReminder"
       />
     </div>
 
     <div class="flex">
       <button
         class="p-4 m-2 flex-1 bg-white font-medium"
-        @click="openReminderModal"
+        @click="
+          () => {
+            active_reminder = null;
+            openReminderModal();
+          }
+        "
       >
         Create new task!
       </button>
     </div>
     <reminder-modal
       ref="reminderModal"
+      :reminder="active_reminder"
       @on-reminder-created="reloadReminders"
     />
   </div>
@@ -42,12 +50,14 @@ export default {
   },
   data: () => ({
     reminders: [],
+    active_reminder: null,
   }),
   async mounted() {
     await this.reloadReminders();
   },
   methods: {
     async reloadReminders() {
+      // this.active_reminder = null;
       const now = +new Date();
       const nowPlusWeek = now + 1000 * 60 * 60 * 24 * 7;
 
@@ -62,7 +72,14 @@ export default {
       this.reminders = reminders;
     },
     openReminderModal() {
-      this.$refs.reminderModal.open();
+      setTimeout(() => {
+        this.$refs.reminderModal.open();
+      }, 500);
+    },
+    editReminder(index) {
+      console.log(`Edit reminder fired with index: ${index}!`);
+      this.active_reminder = this.reminders[index];
+      this.openReminderModal();
     },
   },
 };

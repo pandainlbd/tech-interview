@@ -1,3 +1,6 @@
+import mongodb from 'mongodb';
+const { ObjectID } = mongodb;
+
 import express from 'express';
 const router = express.Router();
 
@@ -45,5 +48,35 @@ router.post('/create', async (req, res) => {
 	});
 	res.json({ success: true });
 });
+
+router.patch('/update', async (req, res) => {
+	const {
+		_id,
+		name,
+		description,
+		datetime,
+		reminder_color,
+		audio
+	} = req.body;
+
+	if (!name || !datetime)
+		return res.json({ err: 'Please enter at least a name and a time' });
+
+	const db = req.app.get('db');
+	const remindersCol = db.collection('reminders');
+
+	await remindersCol.updateOne({ _id: ObjectID(_id) }, {
+		$set: {
+			name: name,
+			description: description,
+			datetime: new Date(datetime),
+			reminder_color: reminder_color,
+			audio: audio
+		}
+	})
+
+	res.send().status(200);
+
+})
 
 export default router;

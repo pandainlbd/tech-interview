@@ -26,6 +26,15 @@
       </select>
       <voice-recorder @audio_available="receive_audio" />
       <button
+        v-if="reminder"
+        class="p-2 my-2 font-medium bg text-white"
+        id="createButton"
+        @click="update"
+      >
+        Update
+      </button>
+      <button
+        v-else
         class="p-2 my-2 font-medium bg text-white"
         id="createButton"
         @click="create"
@@ -40,6 +49,12 @@
 import VoiceRecorder from "./VoiceRecorder.vue";
 
 export default {
+  props: {
+    reminder: {
+      type: Object,
+      required: false,
+    },
+  },
   components: { VoiceRecorder },
   data: () => ({
     isOpen: true,
@@ -52,9 +67,24 @@ export default {
   mounted() {},
   methods: {
     open() {
-      this.name = "";
-      this.description = "";
-      this.datetime = new Date().toLocaleString("sv").replace(" ", "T");
+      console.log("Open remainder fired!");
+
+      if (this.reminder) {
+        this.name = this.reminder.name;
+        this.description = this.reminder.description;
+        this.datetime = new Date(Date.parse(this.reminder.datetime))
+          .toLocaleString("sv")
+          .replace(" ", "T");
+        this.reminder_color = this.reminder.reminder_color;
+        this.audio = this.reminder.audio;
+      } else {
+        this.name = "";
+        this.description = "";
+        this.reminder_color = "default";
+        this.datetime = new Date().toLocaleString("sv").replace(" ", "T");
+        this.audio = null;
+      }
+
       this.$refs.dialog.showModal();
     },
     close() {
@@ -81,6 +111,31 @@ export default {
       }
       this.$emit("on-reminder-created");
       this.close();
+    },
+    async update() {
+      try {
+        await fetch("reminder/update", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            _id: this.reminder._id,
+            name: this.name,
+            description: this.description,
+            datetime: this.datetime,
+            reminder_color: this.reminder_color,
+            audio: this.audio,
+          }),
+        });
+      } catch (err) {
+        console.log(res);
+        if (err) {
+          window.alert(res.err);
+          return;
+        }
+      } finally {
+        this.$emit("on-reminder-created");
+        this.close();
+      }
     },
     receive_audio(audio) {
       this.audio = audio;
